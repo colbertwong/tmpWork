@@ -1,4 +1,4 @@
-##### 半角カタカナから全角カタカナへの変換時に問題になるのが、 濁点や半濁点記号の処理です。 このサンプルでは、濁点・半濁点記号が出現した際に、直前の文字に合成する処理を 行っています。
+##### 方法一：半角カタカナから全角カタカナへの変換時に問題になるのが、 濁点や半濁点記号の処理です。 このサンプルでは、濁点・半濁点記号が出現した際に、直前の文字に合成する処理を 行っています。
 
 ``` java
 package samples.string.japanese;
@@ -128,6 +128,36 @@ public class HankakuKatakanaToZenkakuKatakana {
 ```
 
 出力結果: `Javaプログラミング`
+
+##### 方法二：unicode計算で変換する
+
+``` java
+public class KanaConverter {
+    public static void main(String[] args) {
+        String input = "ｶﾀｶﾅ ｱｲｳ123半角英数字→全角英数字は変換されません";
+        String result = convertHalfWidthKanaToFullWidth(input);
+        System.out.println("変換結果: " + result);
+    }
+
+    public static String convertHalfWidthKanaToFullWidth(String input) {
+        StringBuilder result = new StringBuilder();
+
+        for (char c : input.toCharArray()) {
+            // 半角カタカナの範囲: Unicode FF61～FF9F
+            if (c >= '\uFF61' && c <= '\uFF9F') {
+                // 全角カタカナへの変換 (Unicodeオフセット: -0xFF61 + 0x30A1)
+                result.append((char) (c - 0xFF61 + 0x30A1));
+            } else {
+                // それ以外の文字はそのまま追加
+                result.append(c);
+            }
+        }
+
+        return result.toString();
+    }
+}
+```
+
 
 
 
