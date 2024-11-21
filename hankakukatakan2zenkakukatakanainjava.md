@@ -1,6 +1,6 @@
 ##### 半角カタカナから全角カタカナへの変換時に問題になるのが、 濁点や半濁点記号の処理です。 このサンプルでは、濁点・半濁点記号が出現した際に、直前の文字に合成する処理を 行っています。
 
-```
+``` java
 package samples.string.japanese;
 
 public class HankakuKatakanaToZenkakuKatakana {
@@ -126,4 +126,8 @@ public class HankakuKatakanaToZenkakuKatakana {
   }
 }
 ```
+
+出力結果: `Javaプログラミング`
+
+
 
